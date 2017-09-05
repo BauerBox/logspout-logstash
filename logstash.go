@@ -143,7 +143,10 @@ func (a *LogstashAdapter) Stream(logstream chan *router.Message) {
 		data["docker"] = dockerInfo
 		data["stream"] = m.Source
 		data["tags"] = tags
+
+		// Add time fields for aggregation
 		data["utime"] = time.Now().UnixNano()
+		data["itime"] = time.Now().Unix()
 
 		// Return the JSON encoding
 		if js, err = json.Marshal(data); err != nil {
